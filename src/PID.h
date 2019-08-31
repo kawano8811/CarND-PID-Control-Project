@@ -31,6 +31,23 @@ class PID {
    */
   double TotalError();
 
+  /*
+   * Used to reset the simulator and biring the car back to start position.
+   */
+  void Restart(uWS::WebSocket<uWS::SERVER> ws);
+
+  /**
+   * Calculate parameters by Twiddle
+   */
+  void Twiddle(double total_error, double hyperparameter);
+
+  /**
+   * PID Coefficients
+   */
+  double Kp;
+  double Ki;
+  double Kd;
+
  private:
   /**
    * PID Errors
@@ -40,11 +57,10 @@ class PID {
   double d_error;
 
   /**
-   * PID Coefficients
-   */ 
-  double Kp;
-  double Ki;
-  double Kd;
+   * Twiddle params
+   */
+  double tolerance;
+  double delta_p;
 };
 
 #endif  // PID_H
